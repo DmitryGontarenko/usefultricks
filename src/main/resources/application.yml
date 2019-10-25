@@ -22,6 +22,10 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+feign:
+  client:
+    url: http://www.mocky.io/v2/5d7a4944320000a1ea34eea3
+
 printform:
   meta:
     - templateId: myDocument
