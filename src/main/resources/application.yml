@@ -19,6 +19,8 @@ spring:
     change-log: classpath:db/migration-default/changelog.xml
     drop-first: true
     default-schema: public
+  main:
+    allow-bean-definition-overriding: true
 
 printform:
   meta:
