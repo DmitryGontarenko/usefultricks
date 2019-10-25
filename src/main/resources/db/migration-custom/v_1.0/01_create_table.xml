@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="cast(extract(epoch from now()) as bigint)"/>
+
+    <changeSet id="creating_master_tables" author="dmitriy">
+        <createTable tableName="print_basis">
+            <column name="template_id" type="varchar(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="print_json_template_mapping">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="print_basis_foreign_key" type="varchar(255)">
+                <constraints nullable="false" foreignKeyName="fk_print_basis_template_mapping"
+                             references="print_basis (template_id)" deleteCascade="true"/>
+            </column>
+            <column name="template_file" type="bytea">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="print_json_schema">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="print_basis_foreign_key" type="varchar(255)">
+                <constraints nullable="false" foreignKeyName="fk_print_basis_json_schema"
+                             references="print_basis (template_id)" deleteCascade="true"/>
+            </column>
+            <column name="schema_file" type="bytea">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="print_jasper_template">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="print_basis_foreign_key" type="varchar(255)">
+                <constraints nullable="false" foreignKeyName="fk_print_basis_jasper_template"
+                             references="print_basis (template_id)" deleteCascade="true"/>
+            </column>
+            <column name="template_file" type="BYTEA">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

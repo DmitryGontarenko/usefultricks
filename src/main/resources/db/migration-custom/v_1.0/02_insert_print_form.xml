@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="print_basis" author="dmitriy">
+        <sql>
+            INSERT INTO print_basis(template_id)
+            VALUES ('myDocument');
+        </sql>
+    </changeSet>
+
+    <changeSet id="print_jasper_template" author="dmitriy">
+        <sql>
+            INSERT INTO print_jasper_template(id, print_basis_foreign_key, template_file)
+            VALUES ('8b6a3a22-a281-4797-92d4-b0e94fe4cdd6', 'myDocument',(select p.meta_file from
+            print_form_meta p where p.id='myDocument#jasperTemplate.jrxml'));
+        </sql>
+    </changeSet>
+
+    <changeSet id="print_json_schema" author="dmitriy">
+        <sql>
+            INSERT INTO print_json_schema(id, print_basis_foreign_key, schema_file)
+            VALUES ('0d1434f5-0670-405b-b803-288927ad6d5a', 'myDocument', (select p.meta_file from
+            print_form_meta p where p.id='myDocument#schema.json'));
+        </sql>
+    </changeSet>
+
+    <changeSet id="print_json_template_mapping" author="dmitriy">
+        <sql>
+            INSERT INTO print_json_template_mapping(id, print_basis_foreign_key, template_file)
+            VALUES ('c95c5067-eeb5-44d0-90c6-ea933002f3ab', 'myDocument', (select p.meta_file from
+            print_form_meta p where p.id='myDocument#templateMapping.json'));
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
