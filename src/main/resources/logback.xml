@@ -66,20 +66,6 @@
     <!--Так же возможно подключение отдельного файла с параметрами-->
     <property resource="variables.properties" />
 
-    <!--rollingPolicy - условия, при которых запись начнется в новый файл
-    - fileNamePattern - файл будет генерироваться снова для каждого периода указанного в значение fileNamePattern,
-    паттерн по умолчанию для %d:yyy-MM-dd, можно указать несколько спецификаторов d{}, но только одна из них
-    может быть использован для периуда ролловера, все остальные должны быть помечены параметром aux, например: %d{yyyy/MM, aux}
-    maxHistory - это свойство контролирует максималное количество сохраняемых лог-файлов и должно применяться первым,
-    пример: если указать ежемесячный ролловер %d{yyyy-MM} и maxHistory=6, то файлы старше 6 месяцев будут удалены, т.е.
-    для ежедневного ролловера в течении одного месяца, необходимо будет указать %d{yyyy-MM-dd} и maxHistory=30
-    - maxFileSize - each archived file, size max 10MB
-    - totalSizeCap - контролирует общий размер всех лог-файлов, при привышении заданного размера, самые старые
-    файлы будут удаляться, данное свойство должно применяться вторым, после maxHistory.
-    - maxFileSize - устанавлвает максимальный размер для каждого лог-файла в отдельности.
-    - токен %i является обязательным при использовании свойста maxFileSize. Каждый раз, когда текущий лог-файл
-    будет достигать максимального значения до окончания текущего периода премени, он будет архивироваться
-    с наростающим индексом, начиная с 0-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log_path}/report-print.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -95,70 +81,11 @@
 
     <!--outputPatternAsHeader - это свойство выводит используемый шаблон
     в начале журнала логов, по умолчанию выключено-->
-    <!--LevelFilter - фильтрует события на основе точного соответствия уровня
-    - ThresholdFilter - фильтрует события которые равны или ниже указанного,
-    все события выше будут откланены (DENY)
-    - EvaluatorFilter - принимает блок языка Java, возвращающий логическое значение,
-    в даннном случае, если выражение "return message.contains("Custom")" вернет true,
-    все записи, содержащие такое сообщение, будут удалены (DENY)-->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <!--<filter class="ch.qos.logback.classic.filter.LevelFilter">-->
-            <!--<level>INFO</level>-->
-            <!--<onMatch>ACCEPT</onMatch>-->
-            <!--<onMismatch>DENY</onMismatch>-->
-        <!--</filter>-->
-
-        <!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
-            <!--<level>INFO</level>-->
-        <!--</filter>-->
-
-        <!--<filter class="ch.qos.logback.core.filter.EvaluatorFilter">-->
-            <!--<evaluator>-->
-                <!--<expression>return message.contains("Custom");</expression>-->
-            <!--</evaluator>-->
-            <!--<OnMatch>DENY</OnMatch>-->
-            <!--<OnMismatch>NEUTRAL</OnMismatch>-->
-        <!--</filter>-->
-
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>${log_pattern_console}</Pattern>
             <outputPatternAsHeader>true</outputPatternAsHeader>
         </layout>
-    </appender>
-
-    <!--Сохранение логов в HTML-файле
-    Паттер должен быть без пробелов и символов разделения, иначе
-    для каждого символа будет создан отдельный столбец.
-    Есть возможно подключить свой собственный CSS-->
-    <!--appender - сценарий конфиуграции для логгирования
-    appender`s class - указывается имя класса для создания экземпляра
-    <layout> - имя класса для создания макета
-    <encode> - имя класса кодировщика. По умолчанию это класс PatternLayoutEncoder. Encoder отвечает
-    за преоразование событий в байтовый массив, а так же запись этого массива в OutputStream
-    <append> - true:добавление логов в коней существующего файла, в противном случае false,
-    по умолчанию имеет свойство true
-    <file> - указывается имя и путь до файла, если файл или родительский каталог
-    не существует, они будут созданы автоматически-->
-    <appender name="FILE_HTML" class="ch.qos.logback.core.FileAppender">
-        <file>${log_path}/log-file.html</file>
-        <append>false</append>
-        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <layout class="ch.qos.logback.classic.html.HTMLLayout">
-                <pattern>%d{HH:mm:ss}%thread%level%logger%msg%mdc</pattern>
-            </layout>
-        </encoder>
-    </appender>
-
-    <!--Сохранения логов в Базу данных
-    До использования этого сценария должны быть созданы три таблицы.
-    Пример скрипта создания находится в "logback-classic/src/main/java/ch/qos/logback/classic/db/script folder"-->
-    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
-        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
-            <driverClass>org.postgresql.Driver</driverClass>
-            <url>jdbc:postgresql://localhost:5432/usfl</url>
-            <user>postgres</user>
-            <password>123</password>
-        </connectionSource>
     </appender>
 
     <!--logger - настройка вывода лога для конкретного имени, не зависит от настроек корневого логгера-->
@@ -171,7 +98,6 @@
      основного потока (в консоли выводиться не будут)-->
     <logger name="liquibase" level="info" additivity="false">
         <appender-ref ref="FILE" />
-        <appender-ref ref="DB" />
     </logger>
 
     <!--root - корневой логгер, он поддерживает только настройку атрибута уровня
