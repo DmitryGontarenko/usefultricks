@@ -1,70 +1,7 @@
-<configuration scan="true" scanPeriod="5 seconds">
-    <!--%logger{length} - выводит имя объекта логгирования. Этот оператор принимает целое число в качестве параметра. Алгоритм сокращает имя
-    объекта без значительной потери смысла, 0 - приведет к тому, что имя класса будет напечатано без префикса имени пакета, а
-    по умолчанию имя будет напечатано полностью.
-    Пример: если{5} l.e.j.JdbcExecutor; если{36} liquibase.executor.jvm.JdbcExecutor-->
-    <!--d{pattern,timezone} - используется для вывода даты логгирования. Синтаксис шаблона совместим с форматом java.text.SimpleDateFormat.
-     При отстутствии шаблона используется шаблон "ISO8601". Параметр timezone указывает часовой пояс. При отсутствии параметра будет указан
-     часовой пояс по умолчанию для хост-платформы Java-->
-    <!--relative - выводит количество миллисекунд, прошедших с момента запуска приложения дл создания события логгирования-->
-    <!--[%thread] - выводит имя логгируемого потока-->
-    <!--%level - выводит уровень события логгирования (info/debug/error/trace/warn)-->
-    <!--%msg - выводит сообщение, связанное с событием логгирование.-->
-    <!--%n - символ разделителя строк (иначе все сообщения будут в одно строку)-->
-    <!--% - символ, которым отмечаются слова преобразователи-->
-
-    <!--%-5logger - выравнивание по ширине на указанное количество символов (включая символы самого уровня логгирования)
-     -5 - выравнивание по правому краю, 5 - по левому-->
-    <!--%-1.logger - усечение уровня логгирование до указанного количества символов-->
-
-    <!--replace(p){r,t}) - где 'r' регулярное выражение, которое будет изменено на значение 't' в строке 'p'.
-     Пример: %replace(%msg){'INTO [a-z_]+', 'xxxx'}%n - имя всех таблиц в логах будут маскироваться значением 'xxxx' -->
-
-    <!--в logback можно группировать подшаблоны и применять к ним директивы форматирования.
-    Пример: %-30(%d{HH:mm:ss} [%thread])... - отступ 30 символов перед выводом уровня логгирования-->
-
-    <!--%highlight(%level) - автоматически устанавливает цвет для error:bold-red, warn:red, info:blue -->
-    <!--%cyan() - цветовая группировка, позволят изменить цвет выбранного шаблона. Имеет несколько разных цветов-->
-
-    <!--Evaluator - при выполнении заданного условия выводит информацию о вызывающем классе на консоль.
-    ...%m$n%caller(depth, evaluator) - применить evaluator для паттерна логгирования
-    Так же можно подавить трасировку ислючений заданного типа
-    ...%m%n%ex{depth, evaluator} - применить evaluator для паттерна логирования-->
-    <evaluator name="DISP_CALLER_EVAL">
-        <expression>
-            logger.contains("com.accenture") &amp;
-            message.contains("Hello there")
-        </expression>
-    </evaluator>
-    <evaluator name="DISP_EX_EVAL">
-        <expression>
-            throwable != null &amp; throwable instanceof
-            com.accenture.usefultricks.exception.CustomException
-        </expression>
-    </evaluator>
-
-    <!--Можно подключить конфигурацию из другого файла, подключаемое содержимое обязательно должно
-    содержаться в тегах <included>. Содержимое можно подключить по имени файла, ресурса или URL-->
-    <include resource="includedLogback.xml"/>
-
-    <!--conversionRule - бъявляем новое "слово-преобразование" и используем для паттерна логгирования %nanos-->
-    <conversionRule conversionWord="nanos"
-                    converterClass="com.accenture.usefultricks.logback.CustomLogback" />
-
-    <!--contextName - наименование сценария конфигурации. По умолчанию default.
-    Позволяет разлечить логгирование одних и тех же классов разными сценариями-->
-    <contextName>writeToFileApp</contextName>
-
-    <!--property - создание переменной. ${property-name} - применение.
-    Подстановка переменных может происходить в любом месте файла конфигурации, где можно указать значение (value). -->
-    <!--В случае, если переменная не объявлена, можно указать значение по умолчанию с помощью оператора ":-"
-    Например: ${log_dir_name:-DEFAULT_DIR}-->
-    <property name="log_pattern" value="%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n"/>
-    <property name="log_pattern_console"
-              value="%-65(%d{HH:mm:ss.SSS} [%thread] %highlight(%.-1level) %cyan(%-36logger{36})) - %replace(%msg){'INTO [a-z_]+', 'xxxx'}%n"/>
+<configuration>
+    <property name="log_pattern"
+              value="%d{HH:mm:ss.SSS} [%thread] %highlight(%.-1level) %logger{36} - %msg%n"/>
     <property name="log_path" value="LOGGING_RECORDS"/>
-    <!--Так же возможно подключение отдельного файла с параметрами-->
-    <property resource="variables.properties" />
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log_path}/report-print.log</file>
@@ -79,36 +16,19 @@
         </encoder>
     </appender>
 
-    <!--outputPatternAsHeader - это свойство выводит используемый шаблон
-    в начале журнала логов, по умолчанию выключено-->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>${log_pattern_console}</Pattern>
-            <outputPatternAsHeader>true</outputPatternAsHeader>
+            <Pattern>${log_pattern}</Pattern>
         </layout>
     </appender>
 
-    <!--logger - настройка вывода лога для конкретного имени, не зависит от настроек корневого логгера-->
     <logger name="com.accenture" level="info"/>
-    <logger name="org.springframework" level="off"/>
-
-    <!--При добавлении <appender-ref> в консоль будут по прежнему выводиться все сообщения, но
-     но в файл по данному сценарию будут записываться только логи с именем liquibase
-     additivity - этот флаг указывает на то, что лог-файлы будут записываться отдельно от
-     основного потока (в консоли выводиться не будут)-->
     <logger name="liquibase" level="info" additivity="false">
         <appender-ref ref="FILE" />
     </logger>
 
-    <!--root - корневой логгер, он поддерживает только настройку атрибута уровня
-    Иерархия уровней: TRACE < DEBUG < INFO < WARN < ERROR (ALL, OFF)
-    Каждый последующий уровень включает в себя предыдущий
-    Корневой уровень по умолчанию DEBUG-->
-    <!--Appenders присоединяются к корневому логгеру по тегу appender-ref-->
     <root level="error">
-        <!--<appender-ref ref="FILE" />-->
+        <appender-ref ref="FILE" />
         <appender-ref ref="CONSOLE" />
-        <!--<appender-ref ref="FILE_HTML" />-->
-        <!--<appender-ref ref="INCLUDED_FILE_HTML" />-->
     </root>
 </configuration>
