@@ -1,0 +1,26 @@
+{
+  "$schema": "",
+  "title": "product",
+  "description": "A product from the catalog",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "The unique identifier for a product"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the product"
+    },
+    "price": {
+      "type": "number",
+      "minimum": 0,
+      "exclusiveMinimum": true
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "price"
+  ]
+}

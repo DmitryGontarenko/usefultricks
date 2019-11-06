@@ -25,17 +25,20 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+
         <!--JPA-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+
         <!--Postgres-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <!--Liquibase-->
         <dependency>
             <groupId>org.liquibase</groupId>
@@ -46,6 +49,7 @@
             <artifactId>liquibase-maven-plugin</artifactId>
             <version>3.4.1</version>
         </dependency>
+
         <!--Lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -53,12 +57,14 @@
             <version>1.18.8</version>
             <scope>provided</scope>
         </dependency>
+
         <!--IOCommon-->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
+
         <!--Feign-client-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -89,6 +95,26 @@
             <groupId>org.codehaus.janino</groupId>
             <artifactId>janino</artifactId>
             <version>2.5.16</version>
+        </dependency>
+
+        <!--Json-schema-->
+        <dependency>
+            <groupId>org.everit.json</groupId>
+            <artifactId>org.everit.json.schema</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+        <!--Json-path-->
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+
+        <!--Gson-->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
         </dependency>
     </dependencies>
 
