@@ -23,3 +23,6 @@
 - настройка и подключение клиента
 - пример работы (от самого создания клиента до использования его в сервисе) 
 [Ссылка](https://github.com/DmitryGontarenko/usefultricks/tree/master/src/main/java/com/accenture/usefultricks/feign)
+
+### Xml and Json
+Содержит примеры работы с форматами XML и JSON, а именно: конвертация, парсинг, работа со схемой.
