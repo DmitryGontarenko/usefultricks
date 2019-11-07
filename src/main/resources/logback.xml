@@ -23,7 +23,7 @@
     </appender>
 
     <logger name="com.accenture" level="info"/>
-    <logger name="liquibase" level="info" additivity="false">
+    <logger name="liquibase" level="info" additivity="true">
         <appender-ref ref="FILE" />
     </logger>
 
