@@ -11,6 +11,8 @@
     <modules>
         <module>jooq</module>
         <module>feignclient</module>
+        <module>liquibase</module>
+        <module>jsonxml</module>
     </modules>
 
     <parent>
@@ -47,37 +49,6 @@
             </exclusions>
         </dependency>
 
-        <!--&lt;!&ndash;JPA&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;Postgres&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.postgresql</groupId>-->
-            <!--<artifactId>postgresql</artifactId>-->
-            <!--<scope>runtime</scope>-->
-        <!--</dependency>-->
-
-        <!--Liquibase-->
-        <!--<dependency>-->
-            <!--<groupId>org.liquibase</groupId>-->
-            <!--<artifactId>liquibase-core</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.liquibase</groupId>-->
-            <!--<artifactId>liquibase-maven-plugin</artifactId>-->
-            <!--<version>3.4.1</version>-->
-        <!--</dependency>-->
-
-        <!--IOCommon-->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-
         <!--Logback-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -95,28 +66,7 @@
             <artifactId>janino</artifactId>
             <version>2.5.16</version>
         </dependency>
-
-        <!--Json-schema-->
-        <dependency>
-            <groupId>org.everit.json</groupId>
-            <artifactId>org.everit.json.schema</artifactId>
-            <version>1.3.0</version>
-        </dependency>
-        <!--Json-path-->
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-            <version>2.4.0</version>
-        </dependency>
-
-        <!--Gson-->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.5</version>
-        </dependency>
     </dependencies>
-
 
 
     <build>

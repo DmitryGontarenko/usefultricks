@@ -5,37 +5,3 @@ logging:
 #    org.springframework: error
 #    com.accenture: info
 #    liquibase: false
-server:
-  port: 8080
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/usfl
-    username: postgres
-    password: 123
-  jpa:
-    properties:
-      hibernate:
-        enable_lazy_load_no_trans: true
-        jdbc:
-          lob:
-          non_contextual_creation: true
-        temp:
-          use_jdbc_metadata_defaults: false
-  liquibase:
-    enabled: true
-    change-log: classpath:db/migration-default/changelog.xml
-    drop-first: true
-    default-schema: public
-  main:
-    allow-bean-definition-overriding: true
-
-feign:
-  client:
-    url: http://www.mocky.io/v2/5d7a4944320000a1ea34eea3
-
-printform:
-  meta:
-    - templateId: myDocument
-      jasperTemplate: jasperTemplate.jrxml
-      schema: schema.json
-      templateMapping: templateMapping.json
