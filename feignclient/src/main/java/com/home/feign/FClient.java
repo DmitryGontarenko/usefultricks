@@ -1,6 +1,7 @@
-package com.home.usefultricks.feign;
+package com.home.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -8,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface FClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/feign")
-    String getData();
+    Person getData();
 }

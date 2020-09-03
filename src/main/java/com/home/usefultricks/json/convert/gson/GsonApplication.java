@@ -9,11 +9,10 @@ import java.io.FileReader;
 
 public class GsonApplication {
     public static void main(String[] args) throws FileNotFoundException {
-        Product product = Product.builder()
-                .id(1)
-                .name("Ferrari")
-                .price(1000)
-                .build();
+        Product product = new Product();
+        product.setId(1);
+        product.setName("Ferrari");
+        product.setPrice(1000);
 
         // convert to Json
         Gson gson = new Gson();

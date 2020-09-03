@@ -1,4 +1,4 @@
-package com.home.usefultricks.feign;
+package com.home.feign;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ public class FeignServiceImpl implements FeignService {
     private FClient feignClient;
 
     @Override
-    public String getFeignData() {
+    public Person getFeignData() {
         return feignClient.getData();
     }
 }

@@ -8,11 +8,10 @@ import java.io.IOException;
 
 public class JacksonApplication {
     public static void main(String[] args) throws IOException {
-        Product product = Product.builder()
-                .id(1)
-                .name("Mazda")
-                .price(500)
-                .build();
+        Product product = new Product();
+        product.setId(1);
+        product.setName("Mazda");
+        product.setPrice(500);
 
         // convert to json
         ObjectMapper mapper = new ObjectMapper();

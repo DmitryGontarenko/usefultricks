@@ -1,7 +1,7 @@
 package com.home.usefultricks.liquibase.migration;
 
-import liquibase.exception.LiquibaseException;
-import liquibase.integration.spring.SpringLiquibase;
+//import liquibase.exception.LiquibaseException;
+//import liquibase.integration.spring.SpringLiquibase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,12 @@ public class MigrationServiceImpl implements MigrationService {
 
     @Override
     public void migrate() {
-        try {
-            SpringLiquibase liquibase = migrationConfig.getLiquibase();
-            liquibase.setShouldRun(true);
-            liquibase.afterPropertiesSet();
-        } catch (LiquibaseException e) {
-            LOGGER.error("Migration error {}", e.getMessage());
-        }
+//        try {
+//            SpringLiquibase liquibase = migrationConfig.getLiquibase();
+//            liquibase.setShouldRun(true);
+//            liquibase.afterPropertiesSet();
+//        } catch (LiquibaseException e) {
+//            LOGGER.error("Migration error {}", e.getMessage());
+//        }
     }
 }

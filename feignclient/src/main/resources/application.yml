@@ -1,0 +1,5 @@
+server:
+  port: 8089
+feign:
+  client:
+    url: http://www.mocky.io/v2/5d7a4944320000a1ea34eea3
