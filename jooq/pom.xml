@@ -11,4 +11,123 @@
 
     <artifactId>jooq</artifactId>
 
+    <properties>
+        <jooq.version>3.13.2</jooq.version>
+        <flyway.version>5.2.4</flyway.version>
+        <db.driver>org.postgresql.Driver</db.driver>
+        <db.url>jdbc:postgresql://localhost:5432/jooq</db.url>
+        <db.username>postgres</db.username>
+        <db.password>123</db.password>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jooq</artifactId>
+        </dependency>
+
+        <!--Database-->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>${flyway.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- JOOQ Generator -->
+        <!--<dependency>-->
+            <!--<groupId>org.jooq</groupId>-->
+            <!--<artifactId>jooq</artifactId>-->
+            <!--<version>${jooq.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.jooq</groupId>-->
+            <!--<artifactId>jooq-meta</artifactId>-->
+            <!--<version>${jooq.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.jooq</groupId>-->
+            <!--<artifactId>jooq-codegen</artifactId>-->
+            <!--<version>${jooq.version}</version>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.10</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- JOOQ Generator Plugin -->
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <version>${jooq.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jdbc>  <!-- указываем настройки базы -->
+                        <driver>${db.driver}</driver>
+                        <url>${db.url}</url>
+                        <user>${db.username}</user>
+                        <password>${db.password}</password>
+                    </jdbc>
+                    <generator>
+                        <database>
+                            <includes>.*</includes>  <!-- включаемые подпакеты и файлы -->
+                            <excludes>  <!-- исключаемые подпакеты и файлы -->
+                                flyway_schema_history
+                            </excludes>
+                            <inputSchema>public</inputSchema>  <!-- схема -->
+                        </database>
+                        <generate>
+                            <records>true</records>
+                        </generate>
+                        <target>
+                            <!-- структура пакетов в указанной ниже директории -->
+                            <packageName>com.home.jooq.db.autocreated</packageName>
+                            <!-- директория для хранения сформированных классов -->
+                            <directory>src/main/java</directory>
+                        </target>
+                    </generator>
+                </configuration>
+            </plugin>
+
+            <!--Flyway Plugin-->
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${flyway.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>migrate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <url>${db.url}</url>
+                    <user>${db.username}</user>
+                    <password>${db.password}</password>
+                    <locations>
+                        <location>filesystem:src/main/resources/db/migration</location>
+                    </locations>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
