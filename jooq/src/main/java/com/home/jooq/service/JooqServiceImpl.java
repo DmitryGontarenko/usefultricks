@@ -20,7 +20,19 @@ public class JooqServiceImpl implements JooqService {
 
     @Override
     @Transactional
-    public Book saveBook(String book) {
-        return jooqDao.saveBook(book);
+    public Book saveBook(Book book) {
+        return jooqDao.saveBook(book.getTitle());
+    }
+
+    @Override
+    @Transactional
+    public void updateBook(Book book) {
+        jooqDao.updateBook(book.getId(), book.getTitle());
+    }
+
+    @Override
+    @Transactional
+    public void deleteBookById(Long id) {
+        jooqDao.deleteBook(id);
     }
 }

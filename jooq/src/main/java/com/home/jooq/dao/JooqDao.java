@@ -103,4 +103,26 @@ public class JooqDao {
                 .where(BOOK.TITLE.eq(book))
                 .fetchOne(AUTHOR_MAPPER);
     }
+
+    /**
+     * Обновления наименование книги по идентификатору таблицы
+     * @param id идентификатор книги
+     * @param newBook // наименование книги
+     */
+    public void updateBook(Long id, String newBook) {
+        dslContext.update(BOOK)
+                .set(BOOK.TITLE, newBook)
+                .where(BOOK.ID.eq(id))
+                .execute();
+    }
+
+    /**
+     * Удаление записи книги по идентификатору
+     * @param id ижентификатор
+     */
+    public void deleteBook(Long id) {
+        dslContext.delete(BOOK)
+                .where(BOOK.ID.eq(id))
+                .execute();
+    }
 }

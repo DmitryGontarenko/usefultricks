@@ -4,10 +4,7 @@ import com.home.jooq.dto.Author;
 import com.home.jooq.dto.Book;
 import com.home.jooq.service.JooqService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -22,8 +19,18 @@ public class JooqController {
         return jooqService.getAuthorByBook(book);
     }
 
-    @RequestMapping(value = "/insert/{book}", method = RequestMethod.GET)
-    public Book saveBook(@PathVariable("book") String book) {
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    public Book saveBook(@RequestBody Book book) {
         return jooqService.saveBook(book);
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public void updateBook(@RequestBody Book book) {
+        jooqService.updateBook(book);
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public void deleteBookById(@PathVariable("id") Long id) {
+        jooqService.deleteBookById(id);
     }
 }

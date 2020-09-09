@@ -5,5 +5,7 @@ import com.home.jooq.dto.Book;
 
 public interface JooqService {
     Author getAuthorByBook(String book);
-    Book saveBook(String book);
+    Book saveBook(Book book);
+    void updateBook(Book book);
+    void deleteBookById(Long id);
 }
