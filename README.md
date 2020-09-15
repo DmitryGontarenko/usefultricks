@@ -6,7 +6,7 @@
 2. Запустить приложение с помощью  `JooqApplication.java`  
 3. Перейти по http://localhost:8085/  
 
-_Порт и доступ к БД настраиваются resources/application.yml_  
+_Порт и доступ к БД настраиваются в resources/application.yml_  
 
 ## Какие библиотеки содержит проект
 ### Liquibase 
