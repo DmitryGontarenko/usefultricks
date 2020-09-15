@@ -38,23 +38,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- JOOQ Generator -->
-        <!--<dependency>-->
-            <!--<groupId>org.jooq</groupId>-->
-            <!--<artifactId>jooq</artifactId>-->
-            <!--<version>${jooq.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.jooq</groupId>-->
-            <!--<artifactId>jooq-meta</artifactId>-->
-            <!--<version>${jooq.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.jooq</groupId>-->
-            <!--<artifactId>jooq-codegen</artifactId>-->
-            <!--<version>${jooq.version}</version>-->
-        <!--</dependency>-->
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -78,7 +61,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jdbc>  <!-- указываем настройки базы -->
+                    <jdbc>
                         <driver>${db.driver}</driver>
                         <url>${db.url}</url>
                         <user>${db.username}</user>
@@ -86,19 +69,17 @@
                     </jdbc>
                     <generator>
                         <database>
-                            <includes>.*</includes>  <!-- включаемые подпакеты и файлы -->
-                            <excludes>  <!-- исключаемые подпакеты и файлы -->
+                            <includes>.*</includes>
+                            <excludes>
                                 flyway_schema_history
                             </excludes>
-                            <inputSchema>public</inputSchema>  <!-- схема -->
+                            <inputSchema>public</inputSchema>
                         </database>
                         <generate>
                             <records>true</records>
                         </generate>
                         <target>
-                            <!-- структура пакетов в указанной ниже директории -->
                             <packageName>com.home.jooq.db.autocreated</packageName>
-                            <!-- директория для хранения сформированных классов -->
                             <directory>src/main/java</directory>
                         </target>
                     </generator>

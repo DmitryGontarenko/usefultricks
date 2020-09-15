@@ -41,8 +41,3 @@ public class JooqConfiguration {
     }
 
 }
-
-
-// важно установить диалоект, иначе, например метод dslContext.nextval(LANGUAGE_SEQ)
-// будет пытаться получить значение Seq след.способом - select "public"."language_seq".nextval
-// но такой способ не поддерживается в POSTGRESQL
