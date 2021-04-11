@@ -13,6 +13,7 @@
         <module>feignclient</module>
         <module>liquibase</module>
         <module>jsonxml</module>
+        <module>vault</module>
     </modules>
 
     <parent>
